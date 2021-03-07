@@ -1,35 +1,59 @@
-#include<reg51.h>
-#define led P2
-sbit sw1=P1^0;
-sbit sw2=P1^1;
-	//2 doublts		1. while decreasing its coming to 0 and stoped		2. after increamenting, if we push sw2 for decreament, we have to push it 2 times.
+#include <reg51.h>
+
+sbit SW1 = P2^0;
+sbit SW2 = P2^1;
+sbit BUZZER = P0^0;
+void delay_1ms(unsigned int);
+
 void main()
 {
-	unsigned char seg[]={0x3F,0x06,0x5B,0x4F,0x66,0x6D,0x7D,0x07,0x7F,0x6F};//,0x77,0x7C,0x39,0x5E,0x79,0x71};
-	unsigned int count,k=0,m,g;
+	unsigned int i;
+	unsigned char str[] = { 0x3F,0x06,0x5B,0x4F,0x66,0x6D,0x7D,0x07,0x7F,0x6F };
+	
+	BUZZER = 0;
+	i = 0;
+	
 	while(1)
 	{
-		
-		for(m=k;m<=9;m++)
+		P1 = str[i];
+		if( SW1 == 0 )
 		{
-			if(sw1 == 0)
+			if( i >= 9)
 			{
-				led=seg[k];
-				while(sw1==0);
-				k=count++;
+				BUZZER = 1;
+				delay_1ms(100);
+				BUZZER = 0;
 			}
-		}		
-		for(g=k;g<=count;g++)
-		{
-			if(sw2==0)
+			else
 			{
-				k=--count;
-				if(k>=0 && k<=9)
-				{
-					led=seg[k];
-					while(sw2==0);
-				}
+				P1 = str[++i];
+				delay_1ms(100);
 			}
+			SW1 = 1;
 		}
+		if( SW2 == 0 )
+		{
+			if( i <= 0 )
+			{
+				BUZZER = 1;
+				delay_1ms(100);
+				BUZZER = 0;
+			}
+			else
+			{
+				P1 = str[--i];
+				delay_1ms(100);
+			}
+			SW2 = 1;
+		}
+	}
+}
+
+void delay_1ms(unsigned int k)
+{
+	unsigned int i,j;
+	for ( i = 0; i < k; i++ )
+	{
+		for ( j = 0; j < 110; j++ );
 	}
 }

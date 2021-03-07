@@ -7,9 +7,7 @@ sbit Q4=P1^3;
 void delay(unsigned int);
 void main()
 {
-											//  0	 	 1		2			3		4			5		6			7		8			9		A			b		C			d		E		F
-	unsigned char seg[16]={0x3F,0x06,0x5B,0x4F,0x66,0x6D,0x7D,0x07,0x7F,0x6F};//,0x77,0x7C,0x39,0x5E,0x79,0x71};
-	P2=0x00;
+	unsigned char seg[10]={0x3F,0x06,0x5B,0x4F,0x66,0x6D,0x7D,0x07,0x7F,0x6F};//,0x77,0x7C,0x39,0x5E,0x79,0x71};
 	while(1)
 	{
 		unsigned int i,j,k,m,n;
@@ -28,36 +26,36 @@ void main()
 						
 						for(a=0;a<4;a++)
 						{
-						Q1=1;
-						Q2=Q3=Q4=0;
-						P2=seg[j];
+							Q1=1;
+							Q2=Q3=Q4=0;
+							P0=seg[j];
 						}
 						
 						delay(4);
 						
 						for(b=0;b<4;b++)
 						{
-						Q2=1;
-						Q1=Q3=Q4=0;
-						P2=seg[i];
+							Q2=1;
+							Q1=Q3=Q4=0;
+							P0=seg[i];
 						}
 						
 						delay(4);
 						
 						for(c=0;c<4;c++)
 						{
-						Q3=1;
-						Q1=Q2=Q4=0;
-						P2=seg[m];
+							Q3=1;
+							Q1=Q2=Q4=0;
+							P0=seg[m];
 						}
 						
 						delay(4);
 						
 						for(d=0;d<4;d++)
 						{
-						Q4=1;
-						Q1=Q2=Q3=0;
-						P2=seg[n];
+							Q4=1;
+							Q1=Q2=Q3=0;
+							P0=seg[n];
 						}
 						
 						delay(4);
